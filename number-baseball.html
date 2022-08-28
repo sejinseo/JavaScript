@@ -4,14 +4,14 @@
     <title>숫자야구</title>
   </head>
   <body>
-    <from id="form">
+    <form id="form">
       <input type="text" id="input" />
       <button>확인</button>
-    </from>
+    </form>
     <div id="logs"></div>
     <script>
       const $input = document.querySelector('#input');
-      const $form = document.querySelector('#from');
+      const $form = document.querySelector('#form');
       const $logs = document.querySelector('#logs');
 
       const numbers = [];
@@ -26,6 +26,35 @@
         numbers.splice(index, 1);
       }
       console.log(answer);
+
+      const tries = [];
+      function checkInput(input) {
+        if (input.length !== 4) {
+          // 길이는 4가 아닌가
+          return alert('4자리 숫자를 입력해 주세요.');
+        }
+        if (new Set(input).size !== 4) {
+          // 중복된 숫자가 있는가
+          return alert('중복되지 않게 입력해 주세요.');
+        }
+        if (tries.includes(input)) {
+          // 이미 시도한 값은 아닌가
+          return alert('이미 시도한 값입니다.');
+        }
+        return true;
+      } // 검사하는 코드
+
+      $form.addEventListener('submit', event => {
+        event.preventDefault();
+        const value = $input.value;
+        $input.value = '';
+        if (checkInput(value)) {
+          // 입력 값 문제 없음
+          tries.push(value);
+        } else {
+          // 에러 있음
+        }
+      });
     </script>
   </body>
 </html>
